@@ -5,6 +5,9 @@
         <f:entry field="sendOnStart" title="${%Send on start of build}">
             <f:checkbox/>
         </f:entry>
+        <f:entry field="conversationId" title="${%Id of conversation to send to}">
+            <f:textbox/>
+        </f:entry>
         <f:entry field="sendMsg" title="${%Message to send on finish}">
             <f:textbox/>
         </f:entry>

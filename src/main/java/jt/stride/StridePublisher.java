@@ -22,11 +22,13 @@ public class StridePublisher extends Notifier {
     public static final StrideDescriptor DESCRIPTOR = new StrideDescriptor();
 
     private final boolean sendOnStart;
+    private final String conversationId;
     private final String sendMsg;
 
     @DataBoundConstructor
-    public StridePublisher(boolean sendOnStart, String sendMsg) {
+    public StridePublisher(boolean sendOnStart, String conversationId,  String sendMsg) {
         this.sendOnStart = sendOnStart;
+        this.conversationId = conversationId;
         this.sendMsg = sendMsg;
     }
 
@@ -37,11 +39,9 @@ public class StridePublisher extends Notifier {
 
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
-        //TODO: parameterize the conversation id in the build.
-        //TODO: URL should be configured in global settings.
         listener.getLogger().println("Sending to Stride");
         HttpClient client = new HttpClient();
-        PostMethod post = new PostMethod("https://api.atlassian.com/site/f96cf489-a553-4645-af11-cb766cb85c23/conversation/b3b26d80-3f72-4aec-bdf1-68976238c74f/message");
+        PostMethod post = new PostMethod(StrideConfiguration.get().getConversationUrl() + "/conversation/" + this.conversationId + "/message");
         String body = buildMessage(build);
         post.setRequestBody(body);
         post.addRequestHeader(new Header("Content-Type", "application/json"));
@@ -78,6 +78,10 @@ public class StridePublisher extends Notifier {
 
     public String getSendMsg() {
         return sendMsg;
+    }
+
+    public String getConversationId() {
+        return conversationId;
     }
 
     @Override

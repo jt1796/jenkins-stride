@@ -1,4 +1,4 @@
-package io.jenkins.plugins.sample;
+package jt.stride;
 
 import hudson.Extension;
 import hudson.util.FormValidation;

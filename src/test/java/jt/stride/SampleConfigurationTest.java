@@ -1,4 +1,4 @@
-package io.jenkins.plugins.sample;
+package jt.stride;
 
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
